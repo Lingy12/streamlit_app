@@ -1,0 +1,8 @@
+numpy
+streamlit
+pandas
+torch
+fairscale
+fire
+sentencepiece
+streamlit

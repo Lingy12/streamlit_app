@@ -12,4 +12,5 @@ sudo docker run -it --rm -p <desired_port>:8501 streamlit:test <your streamlit c
 In order to use LLAMA-2 chat bot:
 
 sudo docker run -it --rm --gpus all -p <desired_port>:8501 -v <your_llama_directory>:/llama streamlit:test streamlit run streamlit_app.py
+
 <your_llama_directory>: Your local llama directory pulled from above llama repository link

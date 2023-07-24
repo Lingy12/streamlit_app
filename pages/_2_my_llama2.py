@@ -20,10 +20,11 @@ with col1:
 
 with col2:
     if st.button('clear'):
-        st.session_state.messages = [] 
+        st.session_state.messages = []
+        st.experimental_rerun()
     max_seq_len = st.slider('Select max_seq_len', 512, 40960, 20480, 512)
     
-if option:
+if option and len(st.session_state.messages) == 0:
     sys_init = load_character(option)
     st.session_state.messages += sys_init
 

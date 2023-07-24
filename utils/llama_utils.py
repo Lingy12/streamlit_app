@@ -38,6 +38,7 @@ def handle_sys_cmd(prompt, messages):
     print('system cmd appened')
 
 def handle_usr_prompt(prompt, messages, max_seq_len):
+    print("Handling user prompt")
     with st.chat_message("user"):
         st.markdown(prompt)
     messages.append({"role": "user", "content": prompt})

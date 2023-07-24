@@ -16,6 +16,7 @@ def save_character(messages: List[dict], name:str):
     with open(f'/app/llama_sys_conf/{name}.json', 'w') as f:
         json.dump(sys_conf, f)
     print(f'Saved characteristic {name}')
+    st.experimental_rerun()
 
 def load_character(name: str):
     """
@@ -36,6 +37,7 @@ def handle_sys_cmd(prompt, messages):
         st.markdown(sys_cmd)
     messages.append({"role": "system", "content": sys_cmd + '\n'})
     print('system cmd appened')
+    st.experimental_rerun()
 
 def handle_usr_prompt(prompt, messages, max_seq_len, model_name):
     print("Handling user prompt")
@@ -58,6 +60,7 @@ def handle_usr_prompt(prompt, messages, max_seq_len, model_name):
         response = json.loads("{" + target[-1] + "}")['content']
         message_placeholder.markdown(response)
     messages.append({"role": "assistant", "content": response + '\n'})
+    st.experimental_rerun()
 
 def get_model_list():
     return ["llama-2-7b-chat", "llama-2-13b-chat", "llama-2-70b-chat"]

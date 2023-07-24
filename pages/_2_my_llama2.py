@@ -43,6 +43,5 @@ if prompt := st.chat_input('Any thing to share ? (Enter [system] as prefix to co
     elif prompt.startswith('[save]'):
         name = prompt[7:]
         save_character(st.session_state.messages, name) # saved file here
-        st.experimental_rerun()
     else:
         handle_usr_prompt(prompt, st.session_state.messages, max_seq_len, model_name)

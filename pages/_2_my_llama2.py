@@ -1,7 +1,7 @@
 import streamlit as st
 from streamlit.runtime.state import session_state
 from utils.llama_utils import handle_sys_cmd, handle_usr_prompt, \
-        load_character, save_character, list_character
+        load_character, save_character, list_character, get_model_list
 
 col1, col2 = st.columns(2)
 
@@ -23,7 +23,11 @@ with col2:
         st.session_state.messages = []
         st.experimental_rerun()
     max_seq_len = st.slider('Select max_seq_len', 512, 40960, 20480, 512)
-    
+    model_name = st.selectbox("Select the model", 
+                              get_model_list(), 
+                              index=0, 
+                              disabled = len(st.session_state.messages) != 0)
+
 if option and len(st.session_state.messages) == 0:
     sys_init = load_character(option)
     st.session_state.messages += sys_init
@@ -41,4 +45,4 @@ if prompt := st.chat_input('Any thing to share ? (Enter [system] as prefix to co
         save_character(st.session_state.messages, name) # saved file here
         st.experimental_rerun()
     else:
-        handle_usr_prompt(prompt, st.session_state.messages, max_seq_len)
+        handle_usr_prompt(prompt, st.session_state.messages, max_seq_len, model_name)

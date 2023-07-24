@@ -34,14 +34,14 @@ def handle_sys_cmd(prompt, messages):
     sys_cmd = prompt[9:]
     with st.chat_message("system"):
         st.markdown(sys_cmd)
-    messages.append({"role": "system", "content": sys_cmd})
+    messages.append({"role": "system", "content": sys_cmd + '\n'})
     print('system cmd appened')
 
 def handle_usr_prompt(prompt, messages, max_seq_len):
     print("Handling user prompt")
     with st.chat_message("user"):
         st.markdown(prompt)
-    messages.append({"role": "user", "content": prompt})
+    messages.append({"role": "user", "content": prompt + '\n'})
 
     with st.chat_message("assistant"):
     # Change to calling llama
@@ -57,5 +57,5 @@ def handle_usr_prompt(prompt, messages, max_seq_len):
         print(target[-1])
         response = json.loads("{" + target[-1] + "}")['content']
         message_placeholder.markdown(response)
-    messages.append({"role": "assistant", "content": response})
+    messages.append({"role": "assistant", "content": response + '\n'})
 

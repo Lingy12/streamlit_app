@@ -37,7 +37,7 @@ def handle_sys_cmd(prompt, messages):
     messages.append({"role": "system", "content": sys_cmd + '\n'})
     print('system cmd appened')
 
-def handle_usr_prompt(prompt, messages, max_seq_len):
+def handle_usr_prompt(prompt, messages, max_seq_len, model_name):
     print("Handling user prompt")
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -48,7 +48,7 @@ def handle_usr_prompt(prompt, messages, max_seq_len):
         message_placeholder = st.empty()
         message_placeholder.markdown(" " + "▌")
         result = subprocess.Popen(["torchrun", "--nproc_per_node", "1", "inference.py", 
-                               "--ckpt_dir", "/llama/llama-2-7b-chat/", "--tokenizer_path", "/llama/tokenizer.model",
+                               "--ckpt_dir", f"/llama/{model_name}/", "--tokenizer_path", "/llama/tokenizer.model",
                                "--max_seq_len", str(max_seq_len), "--max_batch_size", "1", 
                                "--dialog", json.dumps(st.session_state.messages)], stdout=subprocess.PIPE)
         stdout, err = result.communicate()
@@ -59,3 +59,5 @@ def handle_usr_prompt(prompt, messages, max_seq_len):
         message_placeholder.markdown(response)
     messages.append({"role": "assistant", "content": response + '\n'})
 
+def get_model_list():
+    return ["llama-2-7b-chat", "llama-2-13b-chat", "llama-2-70b-chat"]
